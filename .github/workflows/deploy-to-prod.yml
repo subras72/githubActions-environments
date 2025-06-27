@@ -1,0 +1,23 @@
+name: Conditional Workflow Challenge
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release
+      - main
+      - develop
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  conditional-job:
+    runs-on: ubuntu-latest
+    environment: production   # this environment can have specific runtime rules and vars associated with it
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run only on release branch
+        run: echo "This will only execute after environment rules are met."
